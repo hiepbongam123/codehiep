@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyThueThuNhapCaNhanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblLichSuNopThue">
+    <Key>
+      <PropertyRef Name="MaLSThue" />
+    </Key>
+    <Property Name="MaLSThue" Type="Int32" Nullable="false" />
+    <Property Name="MaNguoiNopThue" Type="Int32" />
+    <Property Name="NamNopThue" Type="Int32" />
+    <Property Name="NgayNopThue" Type="DateTime" Precision="0" />
+    <Property Name="TrangThaiNop" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblNguoiNopThue" Relationship="Self.FK_manguoinopthue_lsnt" FromRole="tblLichSuNopThue" ToRole="tblNguoiNopThue" />
+  </EntityType>
+  <EntityType Name="tblNguoiNopThue">
+    <Key>
+      <PropertyRef Name="MaNguoiNopThue" />
+    </Key>
+    <Property Name="MaNguoiNopThue" Type="Int32" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblLichSuNopThues" Relationship="Self.FK_manguoinopthue_lsnt" FromRole="tblNguoiNopThue" ToRole="tblLichSuNopThue" />
+    <NavigationProperty Name="tblNguoiPhuThuocs" Relationship="Self.FK_manguoinopthue_npt" FromRole="tblNguoiNopThue" ToRole="tblNguoiPhuThuoc" />
+    <NavigationProperty Name="tblThuNhaps" Relationship="Self.FK_manguoinopthue_tn" FromRole="tblNguoiNopThue" ToRole="tblThuNhap" />
+    <NavigationProperty Name="tblThueThuNhapCaNhans" Relationship="Self.FK_manguoinopthue_ttncn" FromRole="tblNguoiNopThue" ToRole="tblThueThuNhapCaNhan" />
+  </EntityType>
+  <EntityType Name="tblNguoiPhuThuoc">
+    <Key>
+      <PropertyRef Name="MaNguoiPhuThuoc" />
+    </Key>
+    <Property Name="MaNguoiPhuThuoc" Type="Int32" Nullable="false" />
+    <Property Name="MaNguoiNopThue" Type="Int32" />
+    <Property Name="HoTenNPT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinhNPT" Type="DateTime" Precision="0" />
+    <Property Name="MoiQuanHe" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblNguoiNopThue" Relationship="Self.FK_manguoinopthue_npt" FromRole="tblNguoiPhuThuoc" ToRole="tblNguoiNopThue" />
+  </EntityType>
+  <EntityType Name="tblThueThuNhapCaNhan">
+    <Key>
+      <PropertyRef Name="MaSoThue" />
+    </Key>
+    <Property Name="MaSoThue" Type="Int32" Nullable="false" />
+    <Property Name="MaNguoiNopThue" Type="Int32" />
+    <Property Name="NamTinhThue" Type="Int32" />
+    <Property Name="TongTienThuNhapNam" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="TongSoTienKhauTru" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="TongTienThue" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="tblNguoiNopThue" Relationship="Self.FK_manguoinopthue_ttncn" FromRole="tblThueThuNhapCaNhan" ToRole="tblNguoiNopThue" />
+  </EntityType>
+  <EntityType Name="tblThuNhap">
+    <Key>
+      <PropertyRef Name="MaThuNhap" />
+    </Key>
+    <Property Name="MaThuNhap" Type="Int32" Nullable="false" />
+    <Property Name="MaNguoiNopThue" Type="Int32" />
+    <Property Name="NguonThuNhap" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TongTienThuNhap" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="NgayThuNhap" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="tblNguoiNopThue" Relationship="Self.FK_manguoinopthue_tn" FromRole="tblThuNhap" ToRole="tblNguoiNopThue" />
+  </EntityType>
+  <EntityType Name="vvNguoiTienNop">
+    <Key>
+      <PropertyRef Name="MaNguoiNopThue" />
+    </Key>
+    <Property Name="MaNguoiNopThue" Type="Int32" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TongTienThue" Type="Decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <Association Name="FK_manguoinopthue_lsnt">
+    <End Role="tblNguoiNopThue" Type="Self.tblNguoiNopThue" Multiplicity="0..1" />
+    <End Role="tblLichSuNopThue" Type="Self.tblLichSuNopThue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblNguoiNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Principal>
+      <Dependent Role="tblLichSuNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_manguoinopthue_npt">
+    <End Role="tblNguoiNopThue" Type="Self.tblNguoiNopThue" Multiplicity="0..1" />
+    <End Role="tblNguoiPhuThuoc" Type="Self.tblNguoiPhuThuoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblNguoiNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Principal>
+      <Dependent Role="tblNguoiPhuThuoc">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_manguoinopthue_tn">
+    <End Role="tblNguoiNopThue" Type="Self.tblNguoiNopThue" Multiplicity="0..1" />
+    <End Role="tblThuNhap" Type="Self.tblThuNhap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblNguoiNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Principal>
+      <Dependent Role="tblThuNhap">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_manguoinopthue_ttncn">
+    <End Role="tblNguoiNopThue" Type="Self.tblNguoiNopThue" Multiplicity="0..1" />
+    <End Role="tblThueThuNhapCaNhan" Type="Self.tblThueThuNhapCaNhan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblNguoiNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Principal>
+      <Dependent Role="tblThueThuNhapCaNhan">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyThueThuNhapCaNhanEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="tblLichSuNopThues" EntityType="Self.tblLichSuNopThue" />
+    <EntitySet Name="tblNguoiNopThues" EntityType="Self.tblNguoiNopThue" />
+    <EntitySet Name="tblNguoiPhuThuocs" EntityType="Self.tblNguoiPhuThuoc" />
+    <EntitySet Name="tblThueThuNhapCaNhans" EntityType="Self.tblThueThuNhapCaNhan" />
+    <EntitySet Name="tblThuNhaps" EntityType="Self.tblThuNhap" />
+    <EntitySet Name="vvNguoiTienNops" EntityType="Self.vvNguoiTienNop" />
+    <AssociationSet Name="FK_manguoinopthue_lsnt" Association="Self.FK_manguoinopthue_lsnt">
+      <End Role="tblNguoiNopThue" EntitySet="tblNguoiNopThues" />
+      <End Role="tblLichSuNopThue" EntitySet="tblLichSuNopThues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_manguoinopthue_npt" Association="Self.FK_manguoinopthue_npt">
+      <End Role="tblNguoiNopThue" EntitySet="tblNguoiNopThues" />
+      <End Role="tblNguoiPhuThuoc" EntitySet="tblNguoiPhuThuocs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_manguoinopthue_tn" Association="Self.FK_manguoinopthue_tn">
+      <End Role="tblNguoiNopThue" EntitySet="tblNguoiNopThues" />
+      <End Role="tblThuNhap" EntitySet="tblThuNhaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_manguoinopthue_ttncn" Association="Self.FK_manguoinopthue_ttncn">
+      <End Role="tblNguoiNopThue" EntitySet="tblNguoiNopThues" />
+      <End Role="tblThueThuNhapCaNhan" EntitySet="tblThueThuNhapCaNhans" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

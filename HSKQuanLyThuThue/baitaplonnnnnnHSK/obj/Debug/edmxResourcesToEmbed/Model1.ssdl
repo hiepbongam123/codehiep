@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyThueThuNhapCaNhanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tblLichSuNopThue">
+    <Key>
+      <PropertyRef Name="MaLSThue" />
+    </Key>
+    <Property Name="MaLSThue" Type="int" Nullable="false" />
+    <Property Name="MaNguoiNopThue" Type="int" />
+    <Property Name="NamNopThue" Type="int" />
+    <Property Name="NgayNopThue" Type="date" />
+    <Property Name="TrangThaiNop" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tblNguoiNopThue">
+    <Key>
+      <PropertyRef Name="MaNguoiNopThue" />
+    </Key>
+    <Property Name="MaNguoiNopThue" Type="int" Nullable="false" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="NgaySinh" Type="date" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
+    <Property Name="SDT" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="tblNguoiPhuThuoc">
+    <Key>
+      <PropertyRef Name="MaNguoiPhuThuoc" />
+    </Key>
+    <Property Name="MaNguoiPhuThuoc" Type="int" Nullable="false" />
+    <Property Name="MaNguoiNopThue" Type="int" />
+    <Property Name="HoTenNPT" Type="nvarchar" MaxLength="50" />
+    <Property Name="NgaySinhNPT" Type="date" />
+    <Property Name="MoiQuanHe" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="tblThueThuNhapCaNhan">
+    <Key>
+      <PropertyRef Name="MaSoThue" />
+    </Key>
+    <Property Name="MaSoThue" Type="int" Nullable="false" />
+    <Property Name="MaNguoiNopThue" Type="int" />
+    <Property Name="NamTinhThue" Type="int" />
+    <Property Name="TongTienThuNhapNam" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="TongSoTienKhauTru" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="TongTienThue" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="tblThuNhap">
+    <Key>
+      <PropertyRef Name="MaThuNhap" />
+    </Key>
+    <Property Name="MaThuNhap" Type="int" Nullable="false" />
+    <Property Name="MaNguoiNopThue" Type="int" />
+    <Property Name="NguonThuNhap" Type="nvarchar" MaxLength="50" />
+    <Property Name="TongTienThuNhap" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="NgayThuNhap" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'QuanLyThueThuNhapCaNhan.dbo.vvNguoiTienNop' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vvNguoiTienNop">
+    <Key>
+      <PropertyRef Name="MaNguoiNopThue" />
+    </Key>
+    <Property Name="MaNguoiNopThue" Type="int" Nullable="false" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="NgaySinh" Type="date" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
+    <Property Name="SDT" Type="varchar" MaxLength="10" />
+    <Property Name="TongTienThue" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <Association Name="FK_manguoinopthue_lsnt">
+    <End Role="tblNguoiNopThue" Type="Self.tblNguoiNopThue" Multiplicity="0..1" />
+    <End Role="tblLichSuNopThue" Type="Self.tblLichSuNopThue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblNguoiNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Principal>
+      <Dependent Role="tblLichSuNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_manguoinopthue_npt">
+    <End Role="tblNguoiNopThue" Type="Self.tblNguoiNopThue" Multiplicity="0..1" />
+    <End Role="tblNguoiPhuThuoc" Type="Self.tblNguoiPhuThuoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblNguoiNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Principal>
+      <Dependent Role="tblNguoiPhuThuoc">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_manguoinopthue_tn">
+    <End Role="tblNguoiNopThue" Type="Self.tblNguoiNopThue" Multiplicity="0..1" />
+    <End Role="tblThuNhap" Type="Self.tblThuNhap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblNguoiNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Principal>
+      <Dependent Role="tblThuNhap">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_manguoinopthue_ttncn">
+    <End Role="tblNguoiNopThue" Type="Self.tblNguoiNopThue" Multiplicity="0..1" />
+    <End Role="tblThueThuNhapCaNhan" Type="Self.tblThueThuNhapCaNhan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblNguoiNopThue">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Principal>
+      <Dependent Role="tblThueThuNhapCaNhan">
+        <PropertyRef Name="MaNguoiNopThue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyThueThuNhapCaNhanModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblLichSuNopThue" EntityType="Self.tblLichSuNopThue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblNguoiNopThue" EntityType="Self.tblNguoiNopThue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblNguoiPhuThuoc" EntityType="Self.tblNguoiPhuThuoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblThueThuNhapCaNhan" EntityType="Self.tblThueThuNhapCaNhan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblThuNhap" EntityType="Self.tblThuNhap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vvNguoiTienNop" EntityType="Self.vvNguoiTienNop" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vvNguoiTienNop].[MaNguoiNopThue] AS [MaNguoiNopThue], 
+    [vvNguoiTienNop].[HoTen] AS [HoTen], 
+    [vvNguoiTienNop].[NgaySinh] AS [NgaySinh], 
+    [vvNguoiTienNop].[DiaChi] AS [DiaChi], 
+    [vvNguoiTienNop].[SDT] AS [SDT], 
+    [vvNguoiTienNop].[TongTienThue] AS [TongTienThue]
+    FROM [dbo].[vvNguoiTienNop] AS [vvNguoiTienNop]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_manguoinopthue_lsnt" Association="Self.FK_manguoinopthue_lsnt">
+      <End Role="tblNguoiNopThue" EntitySet="tblNguoiNopThue" />
+      <End Role="tblLichSuNopThue" EntitySet="tblLichSuNopThue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_manguoinopthue_npt" Association="Self.FK_manguoinopthue_npt">
+      <End Role="tblNguoiNopThue" EntitySet="tblNguoiNopThue" />
+      <End Role="tblNguoiPhuThuoc" EntitySet="tblNguoiPhuThuoc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_manguoinopthue_tn" Association="Self.FK_manguoinopthue_tn">
+      <End Role="tblNguoiNopThue" EntitySet="tblNguoiNopThue" />
+      <End Role="tblThuNhap" EntitySet="tblThuNhap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_manguoinopthue_ttncn" Association="Self.FK_manguoinopthue_ttncn">
+      <End Role="tblNguoiNopThue" EntitySet="tblNguoiNopThue" />
+      <End Role="tblThueThuNhapCaNhan" EntitySet="tblThueThuNhapCaNhan" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
