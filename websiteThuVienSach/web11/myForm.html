@@ -1,0 +1,85 @@
+﻿﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="nav sticky" style="margin-left: 0px; margin-top: 0px;">
+        <a href="#"><img style="    border-radius: 10%" class="logo" src="/img/logo.png" alt="logo"></a>
+        <ul class="main-nav">
+            <li><a href="btlbansach.aspx">Trang Chủ</a></li>
+            <li><a href="XuLy.aspx">Lịch Sử Mua</a></li>
+            <li><a href="btldangnhap.aspx">Đăng Xuất</a></li>
+        </ul>
+
+    </div>
+    <div class="clearfix"></div>
+    <br /><br /><br /><br />
+    <link rel="stylesheet" href="css/styles.css" />
+
+
+
+
+    <div class="well-thanhtoan">
+        
+            <h3>Đơn Hàng</h3>
+
+            <form action="XuLy.aspx" method="post" class="nhapthongtin" onsubmit="return checkData()" runat="sever">
+                <div class="thongtin" ">
+
+
+                    <label for="hoten">Gói mua</label>
+                    <input type="text" name="hoten" id="hoten" runat="sever" class="hoteen"/>  <br /><br />
+                    <label id="check_ten"> </label> <br />
+                    <br><label>Ngày mua</label>
+                    <input type="date" name="namsinh" id="namsinh" runat="sever" class="hotee"/> <br /><br />
+                    <label id="check_date"> </label> <br />
+                    <div style="margin-top:24px">
+                        <input type="submit" name="luu" id="luu" value="Thanh Toán" />
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+
+
+        <script>
+            function checkTen() {
+                var ten = document.getElementById('hoten').value;
+                if (ten == "") {
+                    document.getElementById('check_ten').innerHTML = "Tên không được để trống";
+                } else {
+
+                    return true;
+                }
+                return false;
+            }
+
+            function checkDate() {
+                var date = document.getElementById('namsinh').value;
+                console.log(date.getFullDate());
+                if (date == "") {
+                    document.getElementById('check_date').innerHTML = "Thời gian không để trống";
+                }
+                else {
+                    return true;
+                }
+                return false;
+            }
+
+            function checkData() {
+                checkTen();
+                checkDate();
+                if (checkTen() == true && checkDate() == true) {
+                    return true;
+                }
+                return false;
+            }
+
+
+        </script>
+</body>
+</html>

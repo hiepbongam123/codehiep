@@ -1,0 +1,39 @@
+﻿
+
+form {
+    width: 450px;
+    min-height: 500px;
+    height: auto;
+    border-radius: 5px;
+    margin: 2% auto;
+    padding: 2%;
+    background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+}
+
+.form {
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+
+
+
+    .tooltip .tooltiptext {
+        position: absolute;
+        visibility: hidden;
+        z-index: 1;
+        opacity: 0;
+        /*    transition: opacity 0.3s;*/
+    }
+
+
+    /* Hiển thị tooltip khi hover */
+
+.tooltip:hover .tooltiptext,
+.tooltip:active .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+

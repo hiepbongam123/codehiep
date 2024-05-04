@@ -1,0 +1,59 @@
+﻿/* big ipad */
+@media only screen and (max-width: 1200px) {
+    html {
+        font-size: 16px;
+    }
+
+    .heading-main-box {
+        transform: translate(-35%,-50%);
+    }
+
+    form {
+        margin-left: 20%;
+    }
+}
+/* big dt ipad */
+@media only screen and (max-width: 1023px) {
+    .logo {
+        width: 300px;
+    }
+
+    .main-nav {
+        margin-top: 40px;
+        margin-right: 15px;
+    }
+
+    .heading-main-box {
+        transform: translate(-40%,50%);
+    }
+
+    .product-section btn {
+        width: 80%;
+    }
+
+    cite img {
+        margin-left: 0;
+        margin-bottom: 20%;
+    }
+
+    .box {
+        margin-left: 15%;
+    }
+
+    .col {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    .col {
+        width: 100%;
+    }
+}
+
+/* dt */
+@media only screen and (max-width: 480px) {
+    .col {
+        width: 100%;
+    }
+}
